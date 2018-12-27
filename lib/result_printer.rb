@@ -1,19 +1,20 @@
 class ResultPrinter
+
   def initialize
     # Записываем результаты теста в массив
     @results = []
 
     # Каждый из семи результатов записан в отдельном текстовом файле
     # Сохраняем названия этих файлов
-    answers_files = Dir["#{__dir__}/data/answers/*.txt"].sort
+    results_files = Dir["#{__dir__}/../data/results/*.txt"].sort
 
     # Открываем каждый файл и записываем его содержимое в массив с результатами
-    answers_files.each do |file|
+    results_files.each do |file|
       f = File.new(file, "r:UTF-8")
-      answer = f.read
+      result = f.read
       f.close
 
-      @results << answer
+      @results << result
     end
   end
 
