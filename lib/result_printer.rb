@@ -1,12 +1,12 @@
 class ResultPrinter
 
-  def initialize
+  def initialize(results_path)
     # Записываем результаты теста в массив
     @results = []
 
     # Каждый из семи результатов записан в отдельном текстовом файле
     # Сохраняем названия этих файлов
-    results_files = Dir["#{__dir__}/../data/results/*.txt"].sort
+    results_files = Dir[results_path].sort
 
     # Открываем каждый файл и записываем его содержимое в массив с результатами
     results_files.each do |file|
