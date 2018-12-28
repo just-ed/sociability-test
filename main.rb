@@ -10,7 +10,7 @@ test = Test.new(questions_path, inverted_questions)
 
 result = ResultPrinter.new(results_path)
 
-until test.finished? do
+until test.finished?
   puts test.ask_question(test.current_question)
 
   answer = nil
