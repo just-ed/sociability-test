@@ -1,38 +1,22 @@
 class ResultPrinter
+  attr_reader :results
 
   def initialize(results_path)
-    # Записываем результаты теста в массив
-    @results = []
-
-    # Каждый из семи результатов записан в отдельном текстовом файле
-    # Сохраняем названия этих файлов
-    results_files = Dir[results_path].sort
-
-    # Открываем каждый файл и записываем его содержимое в массив с результатами
-    results_files.each do |file|
-      f = File.new(file, "r:UTF-8")
-      result = f.read
-      f.close
-
-      @results << result
-    end
+    @results = File.readlines(results_path)
   end
 
-  # Метод для вывода на экран результата теста в зависимости от количества набранных баллов
-  def print_result(test)
-    puts "\nВаш результат (количество набранных баллов - #{test.points}):\n\n"
-
-    if test.points > 29
+  def print_result(points)
+    if points > 29
       @results[0]
-    elsif test.points > 24
+    elsif points > 24
       @results[1]
-    elsif test.points > 18
+    elsif points > 18
       @results[2]
-    elsif test.points > 13
+    elsif points > 13
       @results[3]
-    elsif test.points > 8
+    elsif points > 8
       @results[4]
-    elsif test.points. > 3
+    elsif points > 3
       @results[5]
     else
       @results[6]

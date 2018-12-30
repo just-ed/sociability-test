@@ -1,28 +1,31 @@
+require_relative 'lib/question'
 require_relative 'lib/test'
 require_relative 'lib/result_printer'
 
 questions_path = "#{__dir__}/data/questions.txt"
-results_path = "#{__dir__}/data/results/*.txt"
+results_path = "#{__dir__}/data/results.txt"
 
-inverted_questions = [4, 9, 10]
+questions_file = File.new(questions_path)
+questions = []
+questions_file.each_line { |line| questions << Question.new(line) }
 
-test = Test.new(questions_path, inverted_questions)
+test = Test.new(questions)
 
 result = ResultPrinter.new(results_path)
 
 until test.finished?
-  puts test.ask_question(test.current_question)
+  puts test.ask_question
 
   answer = nil
-
-  until answer == 1 || answer == 2 || answer == 3
+  until [1, 2, 3].include?(answer)
     puts 'введите число: 1 – да, 2 – нет, 3 – иногда, и нажмите Enter'
     answer = STDIN.gets.to_i
   end
 
-  test.add_points(test.current_question, answer)
+  test.add_points(answer)
 
-  test.current_question += 1
+  test.next_question
 end
 
-puts result.print_result(test)
+puts "\nВаш результат (количество набранных баллов - #{test.points}):\n\n"
+puts result.print_result(test.points)
