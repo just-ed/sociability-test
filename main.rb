@@ -5,12 +5,7 @@ require_relative 'lib/result_printer'
 questions_path = "#{__dir__}/data/questions.txt"
 results_path = "#{__dir__}/data/results.txt"
 
-questions_file = File.new(questions_path)
-questions = []
-questions_file.each_line { |line| questions << Question.new(line) }
-
-test = Test.new(questions)
-
+test = Test.new(questions_path)
 result = ResultPrinter.new(results_path)
 
 until test.finished?

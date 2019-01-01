@@ -1,17 +1,9 @@
 class Question
-  attr_reader :text
+  attr_reader :text, :is_inverted
 
-  INVERTED_QUESTIONS = [4, 9, 10]
-
-  def initialize(question)
-    @text = question
-  end
-
-  def inverted_questions
-    INVERTED_QUESTIONS
-  end
-
-  def inverted?(question)
-    inverted_questions.include?(question)
+  def initialize(question_line)
+    parts = question_line.split('|')
+    @text = parts[0]
+    @is_inverted = parts[1] == 'inverted'
   end
 end

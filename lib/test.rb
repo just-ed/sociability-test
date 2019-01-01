@@ -1,8 +1,10 @@
 class Test
   attr_reader :questions, :current_question, :points
 
-  def initialize(questions)
-    @questions = questions
+  def initialize(questions_path)
+    question_lines = File.readlines(questions_path, chomp: true)
+    @questions = question_lines.map { |line| Question.new(line)}
+
     @points = 0
     @current_question = 0
   end
@@ -12,8 +14,8 @@ class Test
   end
 
   def add_points(answer)
-    if (answer == 1 && !questions[current_question].inverted?(current_question)) ||
-       (answer == 2 &&  questions[current_question].inverted?(current_question))
+    if (answer == 1 && !questions[current_question].is_inverted) ||
+       (answer == 2 &&  questions[current_question].is_inverted)
       @points += 2
     elsif answer == 3
       @points += 1
