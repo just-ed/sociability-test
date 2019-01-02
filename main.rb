@@ -18,8 +18,6 @@ until test.finished?
   end
 
   test.add_points(answer)
-
-  test.next_question
 end
 
 puts "\nВаш результат (количество набранных баллов - #{test.points}):\n\n"
